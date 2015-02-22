@@ -5,11 +5,11 @@ Test environment for RPM packaging
 The image is available on https://registry.hub.docker.com/u/qvdk/fedora-tomcat8/[Docker Hub].
 Download and run this container with the following command:
 
- docker run -it -p 8080:8080 qvdk/fedora-tomcat8 /bin/bash
+    docker run -it -p 8080:8080 qvdk/fedora-tomcat8 /bin/bash
 
 == Build
 
- docker build -t qvdk/fedora-tomcat8 .
+    docker build -t qvdk/fedora-tomcat8 .
 
 == Dependencies
 The Apache Tomcat packaging comes from https://github.com/qvdk/rpm-apache-tomcat[rpm-apache-tomcat@GitHub]
