@@ -1,2 +1,9 @@
 = docker-fedora-tomcat8
 Test environment for RPM packaging
+
+== Build
+
+ docker build -t qvdk/fedora-tomcat8 .
+
+== Dependencies
+The Apache Tomcat packaging comes from https://github.com/qvdk/rpm-apache-tomcat[rpm-apache-tomcat@GitHub]
