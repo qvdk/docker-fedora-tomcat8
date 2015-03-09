@@ -2,9 +2,31 @@ FROM fedora
 
 MAINTAINER Quentin Vandekerckhove
 
-RUN yum -y upgrade && yum -y install java-1.8.0-openjdk.x86_64 less passwd vim && yum clean all
-COPY apache-tomcat-8.0.18-1.noarch.rpm liquibase-3.3.2-1.noarch.rpm /tmp/
+RUN yum -y update && yum -y install \
+	git \
+	hsqldb \
+	java-1.8.0-openjdk.x86_64 \
+	less \
+	maven \
+	passwd \
+	rpm-build \
+	sqlite3 \
+	vim \ 
+	&& yum clean all
+
+COPY hsqldb_server.properties /var/lib/hsqldb/server.properties
+
+COPY apache-tomcat-8.0.18-1.noarch.rpm liquibase-3.1.1-2.fc21.noarch.rpm /tmp/
+
 WORKDIR /tmp
-RUN yum -y --nogpgcheck localinstall liquibase-3.3.2-1.noarch.rpm apache-tomcat-8.0.18-1.noarch.rpm && yum clean all
-RUN yum -y install maven git rpm-build && yum clean all
+
+RUN rpm -ivh apache-tomcat-8.0.18-1.noarch.rpm 
+RUN rpm -ivh --nodeps liquibase-3.1.1-2.fc21.noarch.rpm
+
+# Launch hsqldb on startup
+RUN echo "nohup /usr/lib/hsqldb/hsqldb-wrapper &> /dev/null &" >> ~/.bashrc
+
+ENTRYPOINT /bin/bash
+
 EXPOSE 8080
+EXPOSE 9001
