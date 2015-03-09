@@ -16,12 +16,12 @@ RUN yum -y update && yum -y install \
 
 COPY hsqldb_server.properties /var/lib/hsqldb/server.properties
 
-COPY apache-tomcat-8.0.18-1.noarch.rpm liquibase-3.1.1-2.fc21.noarch.rpm /tmp/
+COPY apache-tomcat-8.0.18-1.noarch.rpm liquibase-3.3.2-1.noarch.rpm /tmp/
 
 WORKDIR /tmp
 
 RUN rpm -ivh apache-tomcat-8.0.18-1.noarch.rpm 
-RUN rpm -ivh --nodeps liquibase-3.1.1-2.fc21.noarch.rpm
+RUN rpm -ivh --nodeps liquibase-3.3.2-1.noarch.rpm
 
 # Launch hsqldb on startup
 RUN echo "nohup /usr/lib/hsqldb/hsqldb-wrapper &> /dev/null &" >> ~/.bashrc
