@@ -26,6 +26,13 @@ RUN rpm -ivh --nodeps liquibase-3.3.2-1.noarch.rpm
 # Launch hsqldb on startup
 RUN echo "nohup /usr/lib/hsqldb/hsqldb-wrapper &> /dev/null &" >> ~/.bashrc
 
+RUN mkdir /workspaces 
+WORKDIR /workspaces
+RUN git clone https://github.com/qvdk/salto-dojo-rpm-packaging.git
+RUN git clone https://github.com/qvdk/salto-dojo-rpm-packaging-settings.git
+RUN cd /workspaces/salto-dojo-rpm-packaging && mvn install -P rpm 
+RUN cd /workspaces/salto-dojo-rpm-packaging-settings && mvn package -P rpm
+
 ENTRYPOINT /bin/bash
 
 EXPOSE 8080
