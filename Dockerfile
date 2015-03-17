@@ -33,6 +33,9 @@ RUN git clone https://github.com/qvdk/salto-dojo-rpm-packaging-settings.git
 RUN cd /workspaces/salto-dojo-rpm-packaging && mvn install -P rpm 
 RUN cd /workspaces/salto-dojo-rpm-packaging-settings && mvn package -P rpm
 
+RUN echo "nohup /opt/apache-tomcat-8.0.18/bin/startup.sh &> /dev/null &" >> ~/.bashrc
+RUN echo "alias sqltool='java -cp /usr/share/java/hsqldb.jar org.hsqldb.cmdline.SqlTool'" >> ~/.bashrc
+
 ENTRYPOINT /bin/bash
 
 EXPOSE 8080
